@@ -16,7 +16,7 @@ def king(request):
         return HttpResponseNotAllowed(['GET'])  # List of allowed ones
     else:
         return JsonResponse({
-            'message': 'Dani Delícia!!!',
+            'message': 'kong',
         }, status=200)
 
 @url(r'^predict$')
