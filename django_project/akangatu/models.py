@@ -1,3 +1,2 @@
-from django.db import models
-
-# Create your models here.
+from akangatu.core.Preprocessor import Preprocessor
+from akangatu.core.Predictor import Predictor
