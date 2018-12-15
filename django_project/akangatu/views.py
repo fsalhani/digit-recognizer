@@ -18,3 +18,19 @@ def king(request):
         return JsonResponse({
             'message': 'Dani Delícia!!!',
         }, status=200)
+
+@url(r'^predict$')
+@csrf_exempt
+def predict(request):
+    if request.method.upper() != 'POST':
+        return HttpResponseNotAllowed(['POST'])  # List of allowed ones
+
+    json_data = request.POST.dict() or json.loads(request.body.decode('utf-8'))
+
+    print(json_data)
+
+    pred = predictor_acessor.predict(json_data['pixels'])
+
+    answer = {'label': int(pred[0]) }
+
+    return JsonResponse(answer, safe=False, status=200)
