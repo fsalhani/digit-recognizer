@@ -2,6 +2,8 @@ import pickle
 
 from .preprocessor import Preprocessor
 
+preprocessor = Preprocessor()
+
 class Predictor:
 	_model = None
 
@@ -15,7 +17,7 @@ class Predictor:
 		if not self._model:
 			self._load_model()
 
-		pixels = Preprocessor.image_to_mnist(pixel_array)
+		pixels = preprocessor.image_to_mnist(pixel_array)
 
 		probs = self._model.predict(pixels)
 		return probs.argmax(axis=1)
