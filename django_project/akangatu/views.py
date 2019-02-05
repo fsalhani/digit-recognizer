@@ -2,6 +2,7 @@ from django.http import JsonResponse, HttpResponseNotAllowed
 from django_quicky import routing
 from django.views.decorators.csrf import csrf_exempt
 import json
+import matplotlib.image as img
 
 from .models import Predictor
 
@@ -25,11 +26,11 @@ def predict(request):
     if request.method.upper() != 'POST':
         return HttpResponseNotAllowed(['POST'])  # List of allowed ones
 
-    json_data = request.POST.dict() or json.loads(request.body.decode('utf-8'))
+    image_file = next(iter(request.FILES.values()))
 
-    print(json_data)
+    image = img.imread(image_file)
 
-    pred = predictor_acessor.predict(json_data['pixels'])
+    pred = predictor_acessor.predict(image)
 
     answer = {'label': int(pred[0]) }
 
